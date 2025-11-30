@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import PaymentButton from '@/components/PaymentButton';
+import DynamicPaymentButton from '@/components/DynamicPaymentButton';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function Home() {
               <li>10 post templates</li>
             </ul>
             <div className="mt-4">
-              <PaymentButton tier="basic" />
+              <DynamicPaymentButton tier="basic" />
             </div>
             <div className="text-sm text-gray-500 mt-4">Instant download link after payment.</div>
           </div>
@@ -42,7 +42,7 @@ export default function Home() {
               <li>Agent preset + 7-day WhatsApp support</li>
             </ul>
             <div className="mt-4">
-              <PaymentButton tier="full" />
+              <DynamicPaymentButton tier="full" />
             </div>
             <div className="text-sm text-gray-500 mt-4">Includes 7-day WhatsApp group invite link.</div>
           </div>
