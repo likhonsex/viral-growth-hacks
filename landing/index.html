@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Viral Growth Toolkit — Get 1k Followers Fast</title>
+  <meta name="description" content="Plug-and-play toolkit for creators & small businesses. Templates, prompts, calendar, and daily AI agent." />
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; padding:0; background:#fff; color:#111; }
+    .wrap{ max-width:840px; margin:40px auto; padding:24px; }
+    h1{ font-size:28px; margin:0 0 8px; }
+    p.lead{ color:#444; margin:0 0 20px; }
+    .tiers{ display:flex; gap:14px; margin:20px 0; flex-wrap:wrap; }
+    .card{ border:1px solid #eee; padding:18px; flex:1 1 260px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.03); }
+    button.atlos-btn{ background:#111; color:#fff; border:none; padding:12px 18px; border-radius:6px; cursor:pointer; font-size:16px; }
+    .note{ font-size:13px; color:#666; margin-top:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Viral Growth Toolkit — Plug & Play</h1>
+    <p class="lead">Get 20 AI prompts, 10 reel templates, 30-day content calendar, TikTok scripts, and a daily AI content agent. Instant delivery after payment.</p>
+
+    <div class="tiers">
+      <div class="card">
+        <h3>Basic Toolkit — $25</h3>
+        <ul>
+          <li>PDF Growth Plan</li>
+          <li>20 AI prompts</li>
+          <li>10 post templates</li>
+        </ul>
+        <div style="margin-top:12px;">
+          <!-- Atlos Payment Script -->
+          <script async src="https://atlos.io/packages/app/atlos.js"></script>
+
+          <!-- Payment Button -->
+          <button class="atlos-btn"
+            onclick="atlos.Pay({
+              merchantId: 'DY8MEAIQG6',
+              orderId: 'basic-1',
+              orderAmount: 250,
+              onSuccess: (res) => handleSuccess(res, 'basic')
+            })">
+            Pay $25
+          </button>
+        </div>
+        <div class="note">Instant download link after payment.</div>
+      </div>
+
+      <div class="card">
+        <h3>Full Bundle — $50</h3>
+        <ul>
+          <li>Everything in Basic</li>
+          <li>10 Reel templates (Canva)</li>
+          <li>Agent preset + 7-day WhatsApp support</li>
+        </ul>
+        <div style="margin-top:12px;">
+          <script async src="https://atlos.io/packages/app/atlos.js"></script>
+          <button class="atlos-btn"
+            onclick="atlos.Pay({
+              merchantId: 'DY8MEAIQG6',
+              orderId: 'full-1',
+              orderAmount: 500,
+              onSuccess: (res) => handleSuccess(res, 'full')
+            })">
+            Pay $50 (Full Bundle)
+          </button>
+        </div>
+        <div class="note">Includes 7-day WhatsApp group invite link.</div>
+      </div>
+    </div>
+
+    <h4>How it works</h4>
+    <ol>
+      <li>Click Pay → complete payment → you’ll be redirected to a download page</li>
+      <li>Download the zip (single-use link)</li>
+      <li>Join the WhatsApp support group (Full only)</li>
+    </ol>
+
+    <div id="msg" style="margin-top:18px;color:green;"></div>
+  </div>
+
+  <script>
+    // Generic success handler that calls your server to get a one-time-download token
+    async function handleSuccess(atlosResponse, tier) {
+      // atlosResponse may contain transaction details. We'll send it to our server to issue a download token.
+      try {
+        const res = await fetch('/api/issue-download', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({transaction: atlosResponse, tier})
+        });
+        const j = await res.json();
+        if (j.ok && j.url) {
+          // redirect to success page with token or open direct
+          window.location.href = '/success.html?token=' + encodeURIComponent(j.token);
+        } else {
+          document.getElementById('msg').innerText = 'Payment processed — wait a second for your download link.';
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('msg').innerText = 'Payment processed — we are preparing your download link.';
+      }
+    }
+  </script>
+</body>
+</html>
